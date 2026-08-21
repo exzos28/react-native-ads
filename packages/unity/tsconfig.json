@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@react-native-ads/unity": [
+        "./src/index"
+      ]
+    },
+    "customConditions": [
+      "react-native-ads-unity-source",
+      "react-native-strict-api"
+    ]
+  }
+}

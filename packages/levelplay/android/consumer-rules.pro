@@ -1,0 +1,3 @@
+-keep class com.margelo.nitro.levelplayads.** { *; }
+-keep class com.ironsource.** { *; }
+-keep class com.unity3d.mediation.** { *; }

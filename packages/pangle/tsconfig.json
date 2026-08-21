@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@react-native-ads/pangle": [
+        "./src/index"
+      ]
+    },
+    "customConditions": [
+      "react-native-ads-pangle-source",
+      "react-native-strict-api"
+    ]
+  }
+}

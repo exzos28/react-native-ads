@@ -1,0 +1,2 @@
+-keep class com.margelo.nitro.pangleads.** { *; }
+-keep class com.bytedance.sdk.openadsdk.** { *; }

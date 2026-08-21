@@ -1,0 +1,2 @@
+-keep class com.margelo.nitro.liftoffads.** { *; }
+-keep class com.vungle.ads.** { *; }

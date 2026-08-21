@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["levelplayads"],
+  "ios": {
+    "iosModuleName": "NitroLevelPlayAds"
+  },
+  "android": {
+    "androidNamespace": ["levelplayads"],
+    "androidCxxLibName": "NitroLevelPlayAds"
+  },
+  "autolinking": {
+    "LevelPlayAds": {
+      "swift": "HybridLevelPlayAds",
+      "kotlin": "HybridLevelPlayAds"
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}

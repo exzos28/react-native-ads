@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["pangleads"],
+  "ios": {
+    "iosModuleName": "NitroPangleAds"
+  },
+  "android": {
+    "androidNamespace": ["pangleads"],
+    "androidCxxLibName": "NitroPangleAds"
+  },
+  "autolinking": {
+    "PangleAds": {
+      "swift": "HybridPangleAds",
+      "kotlin": "HybridPangleAds"
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}

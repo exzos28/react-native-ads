@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@react-native-ads/liftoff": [
+        "./src/index"
+      ]
+    },
+    "customConditions": [
+      "react-native-ads-liftoff-source",
+      "react-native-strict-api"
+    ]
+  }
+}

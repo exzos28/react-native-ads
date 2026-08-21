@@ -1,0 +1,100 @@
+import Foundation
+import NitroModules
+import VungleAdsSDK
+
+final class HybridLiftoffRewardedAd:
+  HybridLiftoffRewardedAdSpec, @unchecked Sendable {
+  fileprivate let events = LiftoffAdEventEmitter()
+  private let ad: VungleRewarded
+  private lazy var delegate = LiftoffRewardedDelegate(owner: self)
+
+  init(placementId: String) {
+    self.ad = VungleRewarded(placementId: placementId)
+    super.init()
+    self.ad.delegate = delegate
+  }
+
+  func load() throws {
+    DispatchQueue.main.async { self.ad.load() }
+  }
+
+  func setUserId(userId: String) throws {
+    DispatchQueue.main.async { self.ad.setUserId(userId: userId) }
+  }
+
+  func show(options: LiftoffAdShowOptions?) throws -> Promise<Void> {
+    Promise.async {
+      do {
+        let viewController = try await currentViewController()
+        try await withCheckedThrowingContinuation {
+          (continuation: CheckedContinuation<Void, Error>) in
+          DispatchQueue.main.async {
+            guard self.ad.canPlayAd() else {
+              continuation.resume(
+                throwing: liftoffError("Liftoff rewarded ad is not ready")
+              )
+              return
+            }
+            self.ad.present(with: viewController)
+            continuation.resume()
+          }
+        }
+      } catch {
+        self.events.emit(.error, error: error)
+        throw error
+      }
+    }
+  }
+
+  func addAdEventListener(
+    eventType: LiftoffAdEventType,
+    listener: @escaping (LiftoffAdEventPayload?) -> Void
+  ) throws -> Double {
+    events.add(eventType: eventType, listener: listener)
+  }
+
+  func removeAdEventListener(subscriptionId: Double) throws {
+    events.remove(subscriptionId: subscriptionId)
+  }
+
+  func removeAllListeners() throws {
+    events.removeAll()
+  }
+
+}
+
+private final class LiftoffRewardedDelegate: NSObject, VungleRewardedDelegate {
+  private weak var owner: HybridLiftoffRewardedAd?
+
+  init(owner: HybridLiftoffRewardedAd) {
+    self.owner = owner
+  }
+
+  func rewardedAdDidLoad(_ rewarded: VungleRewarded) {
+    owner?.events.emit(.rewardedLoaded)
+  }
+
+  func rewardedAdDidFailToLoad(_ rewarded: VungleRewarded, withError error: NSError) {
+    owner?.events.emit(.error, error: error)
+  }
+
+  func rewardedAdDidFailToPresent(_ rewarded: VungleRewarded, withError error: NSError) {
+    owner?.events.emit(.error, error: error)
+  }
+
+  func rewardedAdDidPresent(_ rewarded: VungleRewarded) {
+    owner?.events.emit(.opened)
+  }
+
+  func rewardedAdDidClick(_ rewarded: VungleRewarded) {
+    owner?.events.emit(.clicked)
+  }
+
+  func rewardedAdDidRewardUser(_ rewarded: VungleRewarded) {
+    owner?.events.emit(.rewardedEarnedReward)
+  }
+
+  func rewardedAdDidClose(_ rewarded: VungleRewarded) {
+    owner?.events.emit(.closed)
+  }
+}

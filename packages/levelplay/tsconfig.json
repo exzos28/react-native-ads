@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@react-native-ads/levelplay": [
+        "./src/index"
+      ]
+    },
+    "customConditions": [
+      "react-native-ads-levelplay-source",
+      "react-native-strict-api"
+    ]
+  }
+}
