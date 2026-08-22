@@ -28,7 +28,7 @@ apps/
 
 ## Development
 
-This is a Yarn workspaces + [Turborepo](https://turborepo.dev/) monorepo. See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full development workflow (building, linting, testing, adding a changeset).
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full development workflow (building, linting, testing, adding a changeset).
 
 ```sh
 yarn install
