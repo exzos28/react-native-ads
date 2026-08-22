@@ -43,5 +43,8 @@
   },
   "engines": {
     "node": ">= 22.11.0"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   }
 }

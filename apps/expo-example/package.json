@@ -24,5 +24,8 @@
     "ios": "expo run:ios",
     "prebuild": "expo prebuild --clean"
   },
-  "private": true
+  "private": true,
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  }
 }
