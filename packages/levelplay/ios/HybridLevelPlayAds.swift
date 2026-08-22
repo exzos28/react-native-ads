@@ -73,7 +73,7 @@ final class HybridLevelPlayAds: HybridLevelPlayAdsSpec, @unchecked Sendable {
           }
 
           let request = LPMInitRequestBuilder(appKey: appKey).build()
-          LevelPlay.initWithRequest(request) { _, error in
+          LevelPlay.initWith(request) { _, error in
             self.handleInitialization(error: error)
           }
         }
