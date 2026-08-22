@@ -32,8 +32,22 @@ jobs:
         with:
           publish-script: yarn changeset publish
           version-script: yarn changeset version
+          create-github-releases: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create combined GitHub release
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          tag="release-$(git rev-parse --short HEAD)"
+          notes=$(node -e '
+            const pkgs = JSON.parse(process.env.PUBLISHED_PACKAGES);
+            console.log(pkgs.map((p) => "- " + p.name + "@" + p.version).join("\n"));
+          ')
+          gh release create "$tag" --title "$tag" --notes "$notes"
