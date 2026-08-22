@@ -249,9 +249,9 @@ private final class InterstitialAdHolder: AdHolder, LPMInterstitialAdDelegate {
   func didLoadAd(with adInfo: LPMAdInfo) { onLoaded?() }
   func didFailToLoadAd(withAdUnitId adUnitId: String, error: Error) { onLoadFailed?(error) }
   func didDisplayAd(with adInfo: LPMAdInfo) { onDisplayed?() }
-  func didFailToDisplayAd(withAdInfo adInfo: LPMAdInfo, error: Error) { onDisplayFailed?(error) }
-  func didClickAd(withAdInfo adInfo: LPMAdInfo) {}
-  func didCloseAd(withAdInfo adInfo: LPMAdInfo) { onClosed?() }
+  func didFailToDisplayAd(with adInfo: LPMAdInfo, error: Error) { onDisplayFailed?(error) }
+  func didClickAd(with adInfo: LPMAdInfo) {}
+  func didCloseAd(with adInfo: LPMAdInfo) { onClosed?() }
 }
 
 private final class RewardedAdHolder: AdHolder, LPMRewardedAdDelegate {
@@ -267,8 +267,8 @@ private final class RewardedAdHolder: AdHolder, LPMRewardedAdDelegate {
   func didLoadAd(with adInfo: LPMAdInfo) { onLoaded?() }
   func didFailToLoadAd(withAdUnitId adUnitId: String, error: Error) { onLoadFailed?(error) }
   func didDisplayAd(with adInfo: LPMAdInfo) { onDisplayed?() }
-  func didReward(withAdInfo adInfo: LPMAdInfo, reward: LPMReward) { onReward?() }
-  func didFailToDisplayAd(withAdInfo adInfo: LPMAdInfo, error: Error) { onDisplayFailed?(error) }
-  func didClickAd(withAdInfo adInfo: LPMAdInfo) {}
-  func didCloseAd(withAdInfo adInfo: LPMAdInfo) { onClosed?() }
+  func didRewardAd(with adInfo: LPMAdInfo, reward: LPMReward) { onReward?() }
+  func didFailToDisplayAd(with adInfo: LPMAdInfo, error: Error) { onDisplayFailed?(error) }
+  func didClickAd(with adInfo: LPMAdInfo) {}
+  func didCloseAd(with adInfo: LPMAdInfo) { onClosed?() }
 }
