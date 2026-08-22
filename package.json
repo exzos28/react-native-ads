@@ -2,7 +2,8 @@
   "name": "react-native-ads",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "packageManager": "yarn@4.11.0",
   "scripts": {
@@ -16,8 +17,8 @@
     "release": "turbo run build --filter='./packages/*' && changeset publish"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.7",
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.1",
     "@commitlint/config-conventional": "^21.0.2",
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",

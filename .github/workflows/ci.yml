@@ -18,10 +18,7 @@ jobs:
   changed:
     runs-on: ubuntu-latest
     outputs:
-      unity: ${{ steps.filter.outputs.unity }}
-      pangle: ${{ steps.filter.outputs.pangle }}
-      liftoff: ${{ steps.filter.outputs.liftoff }}
-      levelplay: ${{ steps.filter.outputs.levelplay }}
+      packages: ${{ steps.list.outputs.packages }}
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -39,6 +36,15 @@ jobs:
               - 'packages/liftoff/**'
             levelplay:
               - 'packages/levelplay/**'
+
+      - name: Build affected-packages matrix
+        id: list
+        run: |
+          packages=$(node -e "
+            const filters = { unity: '${{ steps.filter.outputs.unity }}', pangle: '${{ steps.filter.outputs.pangle }}', liftoff: '${{ steps.filter.outputs.liftoff }}', levelplay: '${{ steps.filter.outputs.levelplay }}' };
+            console.log(JSON.stringify(Object.keys(filters).filter((k) => filters[k] === 'true')));
+          ")
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
 
   lint:
     runs-on: ubuntu-latest
@@ -81,12 +87,12 @@ jobs:
 
   build-android:
     needs: changed
+    if: needs.changed.outputs.packages != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        package: [unity, pangle, liftoff, levelplay]
-    if: needs.changed.outputs[matrix.package] == 'true'
+        package: ${{ fromJSON(needs.changed.outputs.packages) }}
     env:
       TURBO_CACHE_DIR: .turbo/android-${{ matrix.package }}
 
@@ -134,12 +140,12 @@ jobs:
 
   build-ios:
     needs: changed
+    if: needs.changed.outputs.packages != '[]'
     runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
-        package: [unity, pangle, liftoff, levelplay]
-    if: needs.changed.outputs[matrix.package] == 'true'
+        package: ${{ fromJSON(needs.changed.outputs.packages) }}
     env:
       TURBO_CACHE_DIR: .turbo/ios-${{ matrix.package }}
 
