@@ -1,6 +1,6 @@
 # @react-native-ads
 
-[Nitro Modules](https://nitro.margelo.com/) bridges for popular mobile ad networks, published as independent scoped packages from a single monorepo.
+[Nitro Modules](https://nitro.margelo.com/) bridges for popular mobile ad networks.
 
 | Package | Network | npm |
 | --- | --- | --- |
