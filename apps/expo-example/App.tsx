@@ -32,9 +32,15 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text style={styles.title}>@react-native-ads monorepo demo</Text>
-      <Text style={styles.status}>{status}</Text>
+      <Text style={styles.status} testID="status">
+        {status}
+      </Text>
       <View style={styles.buttons}>
-        <Button title="Initialize all networks" onPress={initializeAll} />
+        <Button
+          testID="initialize-button"
+          title="Initialize all networks"
+          onPress={initializeAll}
+        />
       </View>
     </SafeAreaView>
   );

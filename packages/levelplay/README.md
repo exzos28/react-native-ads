@@ -43,6 +43,11 @@ if (rewardResult.state === 'completed') {
 - `result.state === 'completed'` is also how you know a rewarded ad earned
   its reward; LevelPlay doesn't send a distinct "reward earned" signal.
 - Call `load()` again after each `show()` to prepare the next impression.
+- No built-in consent UI (no UMP equivalent) — plug your own and forward the
+  result via `setGDPRConsent`/`setCCPAConsent`/`setCOPPA`. If your app already
+  uses [`react-native-google-mobile-ads`](https://docs.page/invertase/react-native-google-mobile-ads),
+  its `AdsConsent` module (wraps Google's UMP SDK) is a good source for these
+  booleans — no need to build a separate consent flow just for this package.
 
 See [`src/specs/LevelPlayAds.nitro.ts`](src/specs/LevelPlayAds.nitro.ts) for
 the full native interface and [`example`](example) for a runnable demo.

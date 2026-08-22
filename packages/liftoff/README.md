@@ -51,7 +51,10 @@ rewarded.load();
 - Use `RewardedAdEventType.LOADED`, not `AdEventType.LOADED`, on a
   `RewardedAd`.
 - No built-in consent UI (no UMP equivalent) — plug your own and forward the
-  result via `setGDPRConsent`/`setCCPAConsent`/`setCOPPA`.
+  result via `setGDPRConsent`/`setCCPAConsent`/`setCOPPA`. If your app already
+  uses [`react-native-google-mobile-ads`](https://docs.page/invertase/react-native-google-mobile-ads),
+  its `AdsConsent` module (wraps Google's UMP SDK) is a good source for these
+  booleans — no need to build a separate consent flow just for this package.
 
 See [`src/specs/LiftoffAds.nitro.ts`](src/specs/LiftoffAds.nitro.ts) for the
 full native interface and [`example`](example) for a runnable demo.
