@@ -1,7 +1,5 @@
 # @react-native-ads
 
-[Nitro Modules](https://nitro.margelo.com/) bridges for popular mobile ad networks.
-
 | Package | Network | npm |
 | --- | --- | --- |
 | [`packages/unity`](packages/unity) | Unity Ads | [`@react-native-ads/unity`](https://www.npmjs.com/package/@react-native-ads/unity) |
