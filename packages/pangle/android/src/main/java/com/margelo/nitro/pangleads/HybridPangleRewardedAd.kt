@@ -3,7 +3,6 @@ package com.margelo.nitro.pangleads
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.Keep
-import com.bytedance.sdk.openadsdk.api.init.PAGConfig
 import com.bytedance.sdk.openadsdk.api.reward.PAGRewardItem
 import com.bytedance.sdk.openadsdk.api.reward.PAGRewardedAd
 import com.bytedance.sdk.openadsdk.api.reward.PAGRewardedAdInteractionListener
@@ -28,10 +27,6 @@ class HybridPangleRewardedAd(
 
   override fun load(verification: PangleAdVerificationOptions?) {
     context.runOnUiQueueThread {
-      // Pangle's S2S reward callback fills `user_id` from this SDK-wide
-      // setting, not from PAGRewardedRequest.extraInfo — without it Pangle
-      // reports the callback with its own placeholder user id.
-      verification?.userId?.takeIf { it.isNotEmpty() }?.let(PAGConfig::setUserData)
       val request = buildRewardedRequest(verification)
       PAGRewardedAd.loadAd(
         placementId,
@@ -67,9 +62,16 @@ class HybridPangleRewardedAd(
     return request
   }
 
+  // Pangle SDK 8.2.0.4 only reads the `media_extra` key from
+  // PAGRewardedRequest.extraInfo (confirmed with Pangle support); any other
+  // key, including `userId`/`customData`, is silently ignored and the S2S
+  // callback's `user_id` stays "defaultUser". PAGConfig.setUserData() has no
+  // effect on the SSV callback either. userId takes priority since it's the
+  // field callers actually rely on for S2S user attribution.
   private fun extraInfoFrom(verification: PangleAdVerificationOptions?): Map<String, String> = buildMap {
-    verification?.userId?.takeIf { it.isNotEmpty() }?.let { put("userId", it) }
-    verification?.customData?.takeIf { it.isNotEmpty() }?.let { put("customData", it) }
+    val mediaExtra = verification?.userId?.takeIf { it.isNotEmpty() }
+      ?: verification?.customData?.takeIf { it.isNotEmpty() }
+    mediaExtra?.let { put("media_extra", it) }
   }
 
   override fun show(): Promise<Unit> = Promise.async {

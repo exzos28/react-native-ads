@@ -30,7 +30,11 @@ export interface PangleInterstitialAd extends HybridObject<{
 
 /**
  * Passed as request `extraInfo` for server-side verification (SSV) of the
- * reward.
+ * reward. The Pangle SDK only reads the `media_extra` key from
+ * `extraInfo` — any other key (including a literal `userId`/`customData`)
+ * is silently ignored and the S2S callback's `user_id` stays "defaultUser"
+ * (confirmed with Pangle support). `userId` is sent as `media_extra` when
+ * present, falling back to `customData` otherwise.
  */
 export interface PangleAdVerificationOptions {
   userId?: string;

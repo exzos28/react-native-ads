@@ -16,12 +16,6 @@ final class HybridPangleRewardedAd:
 
   func load(verification: PangleAdVerificationOptions?) throws {
     DispatchQueue.main.async {
-      // Pangle's S2S reward callback fills `user_id` from this SDK-wide
-      // setting, not from PAGRewardedRequest.extraInfo — without it Pangle
-      // reports the callback with its own placeholder user id.
-      if let userId = verification?.userId, !userId.isEmpty {
-        PAGConfig.share().userDataString = userId
-      }
       let request = Self.makeRewardedRequest(verification: verification)
       PAGRewardedAd.load(withSlotID: self.placementId, request: request) {
         rewardedAd, error in
@@ -49,15 +43,20 @@ final class HybridPangleRewardedAd:
     return request
   }
 
+  // Pangle SDK only reads the `media_extra` key from
+  // PAGRewardedRequest.extraInfo (confirmed with Pangle support); any other
+  // key, including `userId`/`customData`, is silently ignored and the S2S
+  // callback's `user_id` stays "defaultUser". PAGConfig.share().userDataString
+  // has no effect on the SSV callback either. userId takes priority since
+  // it's the field callers actually rely on for S2S user attribution.
   private static func extraInfo(from verification: PangleAdVerificationOptions?) -> [String: String] {
-    var extraInfo: [String: String] = [:]
-    if let userId = verification?.userId, !userId.isEmpty {
-      extraInfo["userId"] = userId
+    guard let mediaExtra = [verification?.userId, verification?.customData]
+      .compactMap({ $0 })
+      .first(where: { !$0.isEmpty })
+    else {
+      return [:]
     }
-    if let customData = verification?.customData, !customData.isEmpty {
-      extraInfo["customData"] = customData
-    }
-    return extraInfo
+    return ["media_extra": mediaExtra]
   }
 
   func show() throws -> Promise<Void> {
