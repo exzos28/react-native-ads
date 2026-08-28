@@ -1,6 +1,6 @@
 {
   "name": "@react-native-ads/pangle",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Nitro Modules bridge for the Pangle Ads SDK",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
