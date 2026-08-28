@@ -181,11 +181,26 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      - name: Set up Ruby
+        if: env.turbo_cache_hit != 1
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          bundler-cache: true
+          working-directory: packages/${{ matrix.package }}/example
+
+      - name: Cache CocoaPods downloads
+        if: env.turbo_cache_hit != 1
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: ~/Library/Caches/CocoaPods
+          key: ${{ runner.os }}-cocoapods-${{ matrix.package }}-${{ hashFiles(format('packages/{0}/example/ios/Podfile', matrix.package), format('packages/{0}/*.podspec', matrix.package)) }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-${{ matrix.package }}-
+
       - name: Install cocoapods
         if: env.turbo_cache_hit != 1
         run: |
           cd packages/${{ matrix.package }}/example/ios
-          bundle install
           bundle exec pod install
 
       - name: Build example for iOS
