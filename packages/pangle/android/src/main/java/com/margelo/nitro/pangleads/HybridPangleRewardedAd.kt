@@ -64,13 +64,11 @@ class HybridPangleRewardedAd(
 
   // Pangle SDK 8.2.0.4 only reads the `media_extra` key from
   // PAGRewardedRequest.extraInfo (confirmed with Pangle support); any other
-  // key, including a literal `userId`/`customData`, is silently ignored and
-  // the S2S callback's `user_id` stays "defaultUser". PAGConfig.setUserData()
-  // has no effect on the SSV callback either. Only `userId` is forwarded —
-  // Pangle has room for a single opaque value, so `customData` (a distinct,
-  // unrelated field) is not supported here.
+  // key is silently ignored and the S2S callback's `user_id` stays
+  // "defaultUser". PAGConfig.setUserData() has no effect on the SSV callback
+  // either.
   private fun extraInfoFrom(verification: PangleAdVerificationOptions?): Map<String, String> = buildMap {
-    verification?.userId?.takeIf { it.isNotEmpty() }?.let { put("media_extra", it) }
+    verification?.mediaExtra?.takeIf { it.isNotEmpty() }?.let { put("media_extra", it) }
   }
 
   override fun show(): Promise<Unit> = Promise.async {
