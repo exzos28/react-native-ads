@@ -9,14 +9,14 @@ const PANGLE_MAVEN_REPOSITORY =
   'https://artifact.bytedance.com/repository/pangle';
 
 function withPangleAds(config) {
-  return withGradleProperties(config, (config) => {
+  return withGradleProperties(config, (modConfig) => {
     AndroidConfig.BuildProperties.updateAndroidBuildProperty(
-      config.modResults,
+      modConfig.modResults,
       'android.extraMavenRepos',
       JSON.stringify([{ url: PANGLE_MAVEN_REPOSITORY }])
     );
 
-    return config;
+    return modConfig;
   });
 }
 

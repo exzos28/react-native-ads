@@ -10,14 +10,14 @@ const packageJson = require('./package.json');
 const LEVELPLAY_MAVEN_REPOSITORY = 'https://android-sdk.is.com/';
 
 function withLevelPlayAds(config) {
-  return withGradleProperties(config, (config) => {
+  return withGradleProperties(config, (modConfig) => {
     AndroidConfig.BuildProperties.updateAndroidBuildProperty(
-      config.modResults,
+      modConfig.modResults,
       'android.extraMavenRepos',
       JSON.stringify([{ url: LEVELPLAY_MAVEN_REPOSITORY }])
     );
 
-    return config;
+    return modConfig;
   });
 }
 
