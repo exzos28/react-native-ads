@@ -1,5 +1,22 @@
 # @react-native-ads/pangle
 
+## 0.3.0
+
+### Minor Changes
+
+- [`c202106`](https://github.com/exzos28/react-native-ads/commit/c202106cfae8fb44ad9216f0cc1e25cd282b4592) Thanks [@exzos28](https://github.com/exzos28)! - **Breaking:** `PangleAdVerificationOptions` no longer has `userId`/`customData`. The Pangle SDK only reads a single `media_extra` key from `PAGRewardedRequest.extraInfo` (confirmed with Pangle support) — any other key, including a literal `userId`/`customData`, is silently ignored and the S2S callback's `user_id` stays `"defaultUser"`. `PAGConfig.setUserData`/`userDataString` has no effect on the SSV callback either.
+
+  The option is now a single `mediaExtra?: string` field forwarded to the native SDK verbatim as `media_extra` — callers decide what value to put there (e.g. a user id), instead of the library guessing a priority between two unrelated fields.
+
+  ```diff
+  - ad.load({ userId: myUserId })
+  + ad.load({ mediaExtra: myUserId })
+  ```
+
+### Patch Changes
+
+- [`777e3fb`](https://github.com/exzos28/react-native-ads/commit/777e3fb432e26b835a3270297b40a00a39fecd4e) Thanks [@exzos28](https://github.com/exzos28)! - Rename the shadowed `config` parameter in the Gradle properties mod callback to `modConfig`, fixing an eslint `no-shadow` warning in `app.plugin.js`. No behavior change.
+
 ## 0.2.1
 
 ### Patch Changes

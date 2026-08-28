@@ -1,5 +1,11 @@
 # @react-native-ads/levelplay
 
+## 0.2.3
+
+### Patch Changes
+
+- [`777e3fb`](https://github.com/exzos28/react-native-ads/commit/777e3fb432e26b835a3270297b40a00a39fecd4e) Thanks [@exzos28](https://github.com/exzos28)! - Rename the shadowed `config` parameter in the Gradle properties mod callback to `modConfig`, fixing an eslint `no-shadow` warning in `app.plugin.js`. No behavior change.
+
 ## 0.2.2
 
 ### Patch Changes
