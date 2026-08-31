@@ -1,5 +1,11 @@
 # @react-native-ads/levelplay
 
+## 0.2.4
+
+### Patch Changes
+
+- [`a86a178`](https://github.com/exzos28/react-native-ads/commit/a86a178f491dd55f29f5080fa8b601087141b860) Thanks [@exzos28](https://github.com/exzos28)! - **Fix:** `app.plugin.js` was declared in `exports` and documented in the README, but missing from `files`, so it was never included in the published tarball. Expo's config-plugin resolution fell back to `main` (an ESM build) and crashed with `SyntaxError: Unexpected token 'typeof'` instead of applying the plugin. Added `app.plugin.js` to `files` so it actually ships.
+
 ## 0.2.3
 
 ### Patch Changes
