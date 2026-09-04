@@ -10,6 +10,7 @@
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
+    "./app.plugin.js": "./app.plugin.js",
     "./package.json": "./package.json"
   },
   "files": [
@@ -22,6 +23,7 @@
     "nitro.json",
     "*.podspec",
     "react-native.config.js",
+    "app.plugin.js",
     "!ios/build",
     "!android/build",
     "!android/gradle",
@@ -58,6 +60,7 @@
     "user-messaging-platform",
     "admob",
     "google-mobile-ads",
+    "expo",
     "ios",
     "android"
   ],
