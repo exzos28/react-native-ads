@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@react-native-ads/ump": [
+        "./src/index"
+      ]
+    },
+    "customConditions": [
+      "react-native-ads-ump-source",
+      "react-native-strict-api"
+    ]
+  }
+}

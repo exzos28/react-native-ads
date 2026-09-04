@@ -6,6 +6,7 @@
 | [`packages/pangle`](packages/pangle) | Pangle | [`@react-native-ads/pangle`](https://www.npmjs.com/package/@react-native-ads/pangle) |
 | [`packages/liftoff`](packages/liftoff) | Liftoff Monetize (Vungle) | [`@react-native-ads/liftoff`](https://www.npmjs.com/package/@react-native-ads/liftoff) |
 | [`packages/levelplay`](packages/levelplay) | LevelPlay (ironSource) mediation | [`@react-native-ads/levelplay`](https://www.npmjs.com/package/@react-native-ads/levelplay) |
+| [`packages/ump`](packages/ump) | Google UMP (consent) | [`@react-native-ads/ump`](https://www.npmjs.com/package/@react-native-ads/ump) |
 
 Each package is independent — install only the ones you need. See each package's own README for install instructions and API usage.
 
@@ -17,6 +18,7 @@ packages/
   pangle/      @react-native-ads/pangle + its own example app
   liftoff/     @react-native-ads/liftoff + its own example app
   levelplay/   @react-native-ads/levelplay + its own example app
+  ump/         @react-native-ads/ump + its own example app
 apps/
   expo-example/    Expo (dev-client) app demonstrating all four packages together
   rn-cli-example/  Bare React Native CLI app demonstrating all four packages together

@@ -36,12 +36,14 @@ jobs:
               - 'packages/liftoff/**'
             levelplay:
               - 'packages/levelplay/**'
+            ump:
+              - 'packages/ump/**'
 
       - name: Build affected-packages matrix
         id: list
         run: |
           packages=$(node -e "
-            const filters = { unity: '${{ steps.filter.outputs.unity }}', pangle: '${{ steps.filter.outputs.pangle }}', liftoff: '${{ steps.filter.outputs.liftoff }}', levelplay: '${{ steps.filter.outputs.levelplay }}' };
+            const filters = { unity: '${{ steps.filter.outputs.unity }}', pangle: '${{ steps.filter.outputs.pangle }}', liftoff: '${{ steps.filter.outputs.liftoff }}', levelplay: '${{ steps.filter.outputs.levelplay }}', ump: '${{ steps.filter.outputs.ump }}' };
             console.log(JSON.stringify(Object.keys(filters).filter((k) => filters[k] === 'true')));
           ")
           echo "packages=$packages" >> "$GITHUB_OUTPUT"
