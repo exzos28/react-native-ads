@@ -11,7 +11,7 @@ for React Native.
 - 🎯 LevelPlay (ironSource) mediation — interstitial and rewarded video
 - ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
 - 📱 iOS & Android
-- 🧩 Expo config plugin included — adds LevelPlay's Maven repo automatically
+- 🧩 Expo CNG supported
 - 🔒 Fully typed API
 
 ## Installation

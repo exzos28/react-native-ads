@@ -11,7 +11,7 @@ Native.
 - 🎯 Liftoff Monetize (Vungle) — interstitial and rewarded video
 - ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
 - 📱 iOS & Android
-- 🧩 Works with Expo out of the box — no config plugin needed
+- 🧩 Expo CNG supported
 - 🔒 Fully typed API
 
 ## Installation
