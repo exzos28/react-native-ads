@@ -1,5 +1,6 @@
 import Foundation
 import NitroModules
+import UIKit
 import UserMessagingPlatform
 
 final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
@@ -17,15 +18,9 @@ final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
         parameters.debugSettings = debugSettings
       }
 
-      try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { error in
-          if let error {
-            continuation.resume(throwing: error)
-          } else {
-            continuation.resume()
-          }
-        }
-      }
+      // Must run on the main thread/queue — the UMP SDK is not thread-safe
+      // and this call can synchronously create UI-related state.
+      try await Self.performRequestConsentInfoUpdate(parameters)
 
       return Self.consentInfo()
     }
@@ -34,7 +29,10 @@ final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
   func loadAndShowConsentFormIfRequired() throws -> Promise<UMPConsentInfo> {
     Promise.async {
       let viewController = try await currentViewController()
-      try await ConsentForm.loadAndPresentIfRequired(from: viewController)
+      // ConsentForm.loadAndPresentIfRequired() creates a WKWebView and must
+      // run on the main thread — `await`ing off of `currentViewController()`
+      // does not itself guarantee that, so hop explicitly.
+      try await Self.performLoadAndPresentIfRequired(from: viewController)
       return Self.consentInfo()
     }
   }
@@ -42,7 +40,7 @@ final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
   func showPrivacyOptionsForm() throws -> Promise<UMPConsentInfo> {
     Promise.async {
       let viewController = try await currentViewController()
-      try await ConsentForm.presentPrivacyOptionsForm(from: viewController)
+      try await Self.performPresentPrivacyOptionsForm(from: viewController)
       return Self.consentInfo()
     }
   }
@@ -50,10 +48,38 @@ final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
   func showForm() throws -> Promise<UMPConsentInfo> {
     Promise.async {
       let viewController = try await currentViewController()
-      let form = try await ConsentForm.load()
-      try await form.present(from: viewController)
+      try await Self.performShowForm(from: viewController)
       return Self.consentInfo()
     }
+  }
+
+  @MainActor
+  private static func performRequestConsentInfoUpdate(_ parameters: RequestParameters) async throws {
+    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+      ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { error in
+        if let error {
+          continuation.resume(throwing: error)
+        } else {
+          continuation.resume()
+        }
+      }
+    }
+  }
+
+  @MainActor
+  private static func performLoadAndPresentIfRequired(from viewController: UIViewController) async throws {
+    try await ConsentForm.loadAndPresentIfRequired(from: viewController)
+  }
+
+  @MainActor
+  private static func performPresentPrivacyOptionsForm(from viewController: UIViewController) async throws {
+    try await ConsentForm.presentPrivacyOptionsForm(from: viewController)
+  }
+
+  @MainActor
+  private static func performShowForm(from viewController: UIViewController) async throws {
+    let form = try await ConsentForm.load()
+    try await form.present(from: viewController)
   }
 
   func getConsentInfo() throws -> UMPConsentInfo {
@@ -61,7 +87,7 @@ final class HybridUMPAds: HybridUMPAdsSpec, @unchecked Sendable {
   }
 
   func reset() throws {
-    ConsentInformation.shared.reset()
+    runOnMain { ConsentInformation.shared.reset() }
   }
 
   func getTCString() throws -> String {

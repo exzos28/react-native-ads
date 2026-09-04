@@ -11,6 +11,14 @@ func umpError(_ message: String, code: Int = 1) -> NSError {
   )
 }
 
+func runOnMain(_ body: @escaping () -> Void) {
+  if Thread.isMainThread {
+    body()
+  } else {
+    DispatchQueue.main.sync(execute: body)
+  }
+}
+
 func currentViewController() async throws -> UIViewController {
   try await withCheckedThrowingContinuation { continuation in
     DispatchQueue.main.async {
