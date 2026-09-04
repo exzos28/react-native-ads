@@ -1,6 +1,6 @@
 {
   "name": "@react-native-ads/ump",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Google User Messaging Platform (UMP) consent SDK for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
