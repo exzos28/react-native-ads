@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ads/liftoff",
   "version": "0.2.0",
-  "description": "Nitro Modules bridge for the Liftoff Monetize (Vungle) SDK",
+  "description": "Liftoff Monetize (Vungle) Ads (interstitial & rewarded video) for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -45,6 +45,17 @@
   },
   "keywords": [
     "react-native",
+    "react-native-ads",
+    "ads",
+    "advertising",
+    "advertisement",
+    "mobile-ads",
+    "monetization",
+    "vungle",
+    "liftoff",
+    "liftoff-monetize",
+    "interstitial",
+    "rewarded",
     "ios",
     "android"
   ],

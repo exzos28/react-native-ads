@@ -1,13 +1,46 @@
 # @react-native-ads/unity
 
-[Nitro Modules](https://nitro.margelo.com/) bridge for Unity Ads
-interstitial and rewarded ads.
+Unity Ads — interstitial and rewarded video ads for React Native.
 
-## Install
+[![npm version](https://img.shields.io/npm/v/@react-native-ads/unity.svg)](https://www.npmjs.com/package/@react-native-ads/unity)
+[![license](https://img.shields.io/npm/l/@react-native-ads/unity.svg)](../../LICENSE)
+
+## Features
+
+- 🎮 Unity Ads — interstitial and rewarded video
+- ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
+- 📱 iOS & Android
+- 🧩 Works with Expo out of the box — no config plugin needed
+- 🔒 Fully typed API
+
+## Installation
+
+### React Native
 
 ```sh
 npm install @react-native-ads/unity react-native-nitro-modules
+cd ios && pod install
 ```
+
+### Expo
+
+```sh
+npx expo install @react-native-ads/unity react-native-nitro-modules
+npx expo prebuild
+```
+
+## API
+
+### `UnityAds()`
+
+| Method | Description |
+| --- | --- |
+| `initialize(gameId: string, options?: { testMode?: boolean }): Promise<void>` | Initializes the Unity Ads SDK. Call once before loading ads. |
+| `load(adType: 'interstitial' \| 'rewarded', placementId: string): Promise<void>` | Requests an ad for the given placement. |
+| `show(adType, placementId: string, verification?: { userId?: string; customData?: string }): Promise<{ state: 'completed' \| 'skipped' }>` | Shows a loaded ad. `verification` is forwarded for rewarded SSV and ignored for interstitials. |
+| `setGDPRConsent(optIn: boolean): void` | Forwards GDPR consent to the SDK. |
+| `setCCPAConsent(optIn: boolean): void` | Forwards CCPA consent to the SDK. |
+| `setCOPPA(isCoppa: boolean): void` | Flags the user as subject to COPPA. |
 
 ## Usage
 
@@ -56,4 +89,3 @@ full native interface and [`example`](example) for a runnable demo.
 ## License
 
 MIT
-

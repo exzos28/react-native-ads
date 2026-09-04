@@ -1,13 +1,74 @@
 # @react-native-ads/liftoff
 
-[Nitro Modules](https://nitro.margelo.com/) bridge for Liftoff Monetize
-(Vungle) interstitial and rewarded ads.
+Liftoff Monetize (Vungle) — interstitial and rewarded video ads for React
+Native.
 
-## Install
+[![npm version](https://img.shields.io/npm/v/@react-native-ads/liftoff.svg)](https://www.npmjs.com/package/@react-native-ads/liftoff)
+[![license](https://img.shields.io/npm/l/@react-native-ads/liftoff.svg)](../../LICENSE)
+
+## Features
+
+- 🎯 Liftoff Monetize (Vungle) — interstitial and rewarded video
+- ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
+- 📱 iOS & Android
+- 🧩 Works with Expo out of the box — no config plugin needed
+- 🔒 Fully typed API
+
+## Installation
+
+### React Native
 
 ```sh
 npm install @react-native-ads/liftoff react-native-nitro-modules
+cd ios && pod install
 ```
+
+### Expo
+
+```sh
+npx expo install @react-native-ads/liftoff react-native-nitro-modules
+npx expo prebuild
+```
+
+## API
+
+### `MobileAds()`
+
+| Method | Description |
+| --- | --- |
+| `initialize(appId: string): Promise<AdapterStatus[]>` | Initializes the Liftoff SDK. Call once before loading ads. |
+| `setGDPRConsent(optIn: boolean, consentMessageVersion: string): void` | Forwards GDPR consent to the SDK. |
+| `setCCPAConsent(optIn: boolean): void` | Forwards CCPA consent to the SDK. |
+| `setCOPPA(isUserCoppa: boolean): void` | Flags the user as subject to COPPA. |
+
+### `InterstitialAd`
+
+| Member | Description |
+| --- | --- |
+| `InterstitialAd.createForAdRequest(adUnitId: string): InterstitialAd` | Creates a new interstitial for the given placement ID. |
+| `load(): void` | Requests an ad. No-op if already loading/loaded. |
+| `show(options?: { immersiveModeEnabled?: boolean }): Promise<void>` | Shows the loaded ad. Rejects if none is loaded. |
+| `loaded: boolean` | Whether an ad is currently loaded. |
+| `addAdEventListener(type: AdEventType, listener): () => void` | Subscribes to one event type; returns an unsubscribe function. |
+| `addAdEventsListener(listener): () => void` | Subscribes to all event types at once. |
+| `removeAllListeners(): void` | Removes every listener on this instance. |
+
+### `RewardedAd`
+
+Same shape as `InterstitialAd`, plus:
+
+| Member | Description |
+| --- | --- |
+| `RewardedAd.createForAdRequest(adUnitId: string): RewardedAd` | Creates a new rewarded ad for the given placement ID. |
+| `setUserId(userId: string): void` | Tags the ad with a user ID for SSV. Call before `show()`. |
+
+`addAdEventListener`/`addAdEventsListener` also accept `RewardedAdEventType` values.
+
+### Event types
+
+| `AdEventType` | `RewardedAdEventType` |
+| --- | --- |
+| `LOADED`, `ERROR`, `OPENED`, `PAID`, `CLICKED`, `CLOSED` | `LOADED`, `EARNED_REWARD` |
 
 ## Usage
 

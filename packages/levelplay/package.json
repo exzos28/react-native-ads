@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ads/levelplay",
   "version": "0.2.4",
-  "description": "Nitro Modules bridge for the LevelPlay (ironSource) mediation SDK",
+  "description": "LevelPlay (ironSource) ad mediation (interstitial & rewarded video) for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -47,6 +47,22 @@
   },
   "keywords": [
     "react-native",
+    "react-native-ads",
+    "ads",
+    "advertising",
+    "advertisement",
+    "mobile-ads",
+    "monetization",
+    "levelplay",
+    "ironsource",
+    "iron-source",
+    "unity",
+    "unity-ads",
+    "ad-mediation",
+    "mediation",
+    "interstitial",
+    "rewarded",
+    "expo",
     "ios",
     "android"
   ],

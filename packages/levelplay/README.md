@@ -1,13 +1,71 @@
 # @react-native-ads/levelplay
 
-[Nitro Modules](https://nitro.margelo.com/) bridge for the LevelPlay
-(ironSource) mediation SDK — interstitial and rewarded ads.
+LevelPlay (ironSource) ad mediation — interstitial and rewarded video ads
+for React Native.
 
-## Install
+[![npm version](https://img.shields.io/npm/v/@react-native-ads/levelplay.svg)](https://www.npmjs.com/package/@react-native-ads/levelplay)
+[![license](https://img.shields.io/npm/l/@react-native-ads/levelplay.svg)](../../LICENSE)
+
+## Features
+
+- 🎯 LevelPlay (ironSource) mediation — interstitial and rewarded video
+- ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
+- 📱 iOS & Android
+- 🧩 Expo config plugin included — adds LevelPlay's Maven repo automatically
+- 🔒 Fully typed API
+
+## Installation
+
+### React Native
 
 ```sh
 npm install @react-native-ads/levelplay react-native-nitro-modules
+cd ios && pod install
 ```
+
+LevelPlay's Android SDK lives outside Google's default Maven repos — add
+the repository to your app's `android/build.gradle` yourself:
+
+```groovy
+allprojects {
+  repositories {
+    maven { url "https://android-sdk.is.com/" }
+  }
+}
+```
+
+### Expo
+
+```sh
+npx expo install @react-native-ads/levelplay react-native-nitro-modules
+```
+
+Enable the bundled config plugin — it adds LevelPlay's Maven repo for you:
+
+```json
+{
+  "expo": {
+    "plugins": ["@react-native-ads/levelplay"]
+  }
+}
+```
+
+```sh
+npx expo prebuild
+```
+
+## API
+
+### `LevelPlayAds()`
+
+| Method | Description |
+| --- | --- |
+| `initialize(appKey: string, options?: { testMode?: boolean }): Promise<void>` | Initializes the LevelPlay SDK. Call once before loading ads. |
+| `load(adType: 'interstitial' \| 'rewarded', adUnitId: string): Promise<void>` | Requests an ad for the given ad unit. |
+| `show(adType, adUnitId: string): Promise<{ state: 'completed' \| 'skipped' }>` | Shows a loaded ad. |
+| `setGDPRConsent(optIn: boolean): void` | Forwards GDPR consent to the SDK. |
+| `setCCPAConsent(optIn: boolean): void` | Forwards CCPA consent to the SDK. |
+| `setCOPPA(isCoppa: boolean): void` | Flags the user as subject to COPPA. |
 
 ## Usage
 

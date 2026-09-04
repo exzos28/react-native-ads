@@ -1,7 +1,7 @@
 {
   "name": "@react-native-ads/pangle",
   "version": "0.3.1",
-  "description": "Nitro Modules bridge for the Pangle Ads SDK",
+  "description": "Pangle Ads (interstitial & rewarded video) for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -47,6 +47,18 @@
   },
   "keywords": [
     "react-native",
+    "react-native-ads",
+    "ads",
+    "advertising",
+    "advertisement",
+    "mobile-ads",
+    "monetization",
+    "pangle",
+    "pangle-ads",
+    "bytedance",
+    "interstitial",
+    "rewarded",
+    "expo",
     "ios",
     "android"
   ],
