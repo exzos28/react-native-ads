@@ -10,10 +10,17 @@ Google User Messaging Platform (UMP) — GDPR/CCPA consent for React Native.
 - 🔐 Google UMP — GDPR/CCPA consent gathering and the privacy options form
 - ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
 - 📱 iOS & Android
-- 🧩 Works with Expo out of the box — no config plugin needed
+- 🧩 Expo config plugin included — wires up your AdMob App ID automatically
 - 🔒 Fully typed API
 
 ## Installation
+
+The UMP SDK refuses to run without a Google-issued AdMob App ID, even if you
+don't use AdMob/Google Mobile Ads — omitting it throws
+`The UMP SDK requires a valid application ID`. Don't have an AdMob app?
+Create one for free in the [AdMob console](https://apps.admob.com/), or use
+Google's public test IDs while developing — see the [`example`](example)
+app for both platforms' values.
 
 ### React Native
 
@@ -21,19 +28,6 @@ Google User Messaging Platform (UMP) — GDPR/CCPA consent for React Native.
 npm install @react-native-ads/ump react-native-nitro-modules
 cd ios && pod install
 ```
-
-### Expo
-
-```sh
-npx expo install @react-native-ads/ump react-native-nitro-modules
-npx expo prebuild
-```
-
-### Required native setup
-
-The UMP SDK refuses to run without a Google-issued AdMob App ID, even if you
-don't use AdMob/Google Mobile Ads — omitting this throws
-`The UMP SDK requires a valid application ID`.
 
 Android — add to `android/app/src/main/AndroidManifest.xml`:
 
@@ -50,11 +44,34 @@ iOS — add to `Info.plist`:
 <string>YOUR_ADMOB_APP_ID</string>
 ```
 
-Don't have an AdMob app? Create one for free in the
-[AdMob console](https://apps.admob.com/) to get an App ID, or use Google's
-public test IDs while developing (`ca-app-pub-3940256099942544~3347511713`
-on Android, `ca-app-pub-3940256099942544~1458002511` on iOS — see the
-[`example`](example) app).
+### Expo
+
+```sh
+npx expo install @react-native-ads/ump react-native-nitro-modules
+```
+
+Enable the bundled config plugin — it wires up the App ID on both platforms
+for you:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "@react-native-ads/ump",
+        {
+          "androidAppId": "YOUR_ADMOB_APP_ID",
+          "iosAppId": "YOUR_ADMOB_APP_ID"
+        }
+      ]
+    ]
+  }
+}
+```
+
+```sh
+npx expo prebuild
+```
 
 ## API
 
