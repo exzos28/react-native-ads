@@ -10,7 +10,7 @@ Google User Messaging Platform (UMP) — GDPR/CCPA consent for React Native.
 - 🔐 Google UMP — GDPR/CCPA consent gathering and the privacy options form
 - ⚡️ [Nitro Modules](https://nitro.margelo.com/) — direct JSI bindings, no bridge overhead
 - 📱 iOS & Android
-- 🧩 Expo config plugin included — wires up your AdMob App ID automatically
+- 🧩 Expo CNG supported
 - 🔒 Fully typed API
 
 ## Installation
