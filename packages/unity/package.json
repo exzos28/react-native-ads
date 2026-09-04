@@ -1,6 +1,6 @@
 {
   "name": "@react-native-ads/unity",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Unity Ads (interstitial & rewarded video) for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
