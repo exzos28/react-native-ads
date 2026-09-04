@@ -132,11 +132,9 @@ rewarded.load({mediaExtra: 'your-user-id'}); // optional, for SSV
   payloads are always `undefined` — treat them as signals only.
 - Use `RewardedAdEventType.LOADED`, not `AdEventType.LOADED`, on a
   `RewardedAd`.
-- No built-in consent UI (no UMP equivalent) — plug your own and forward the
-  result via `setGDPRConsent`/`setCCPAConsent`/`setCOPPA`. If your app already
-  uses [`react-native-google-mobile-ads`](https://docs.page/invertase/react-native-google-mobile-ads),
-  its `AdsConsent` module (wraps Google's UMP SDK) is a good source for these
-  booleans — no need to build a separate consent flow just for this package.
+- No built-in consent UI — gather consent with
+  [`@react-native-ads/ump`](../ump) (or another CMP) and forward the result
+  via `setGDPRConsent`/`setCCPAConsent`/`setCOPPA`.
 
 See [`src/specs/PangleAds.nitro.ts`](src/specs/PangleAds.nitro.ts) for the
 full native interface and [`example`](example) for a runnable demo.

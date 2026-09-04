@@ -12,6 +12,7 @@ This is a monorepo managed using [Yarn workspaces](https://yarnpkg.com/features/
 - `packages/pangle` — `@react-native-ads/pangle`
 - `packages/liftoff` — `@react-native-ads/liftoff`
 - `packages/levelplay` — `@react-native-ads/levelplay`
+- `packages/ump` — `@react-native-ads/ump` (Google UMP consent SDK, not an ad network)
 
 Each package has its own `example/` app you use to test changes to that package.
 

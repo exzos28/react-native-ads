@@ -1,0 +1,2 @@
+-keep class com.margelo.nitro.umpads.** { *; }
+-keep class com.google.android.ump.** { *; }
